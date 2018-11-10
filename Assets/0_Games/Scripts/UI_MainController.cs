@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UniRx;
 public class UI_MainController : MonoBehaviour
 {
+    public AI_Player aI_Player;
     public static UI_MainController Instance;
     void Awake()
     {
@@ -17,7 +19,28 @@ public class UI_MainController : MonoBehaviour
     {
         Hurt.alpha = 0;
         GameOverPanel.alpha = 0;
+
+        aI_Player.ObserveEveryValueChanged(m => m.life).Subscribe(
+            (lift) =>
+            {
+                ApplyLifeBar(lift);
+            }
+        );
+
     }
+
+    public RectTransform lifeBar;
+    Tween lifeTween;
+    void ApplyLifeBar(float life)
+    {
+        if (lifeTween != null)
+        {
+            lifeTween.Kill();
+        }
+        lifeBar.DOScaleX(life / 1000f, 0.2f);
+    }
+
+
     public CanvasGroup Hurt;
     Sequence hurtSeq;
     public void ShowHurtView()

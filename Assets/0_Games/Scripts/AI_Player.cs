@@ -9,8 +9,8 @@ public class AI_Player : MonoBehaviour
 
 
     Transform transformCache;
-
-    public int life = 3;
+    public int lifeInit = 1000;
+    public float life = 1000;
     void Awake()
     {
         transformCache = transform;
@@ -28,6 +28,17 @@ public class AI_Player : MonoBehaviour
             );
 
         isGameing = true;
+        life = lifeInit;
+        StartCoroutine(LifeLose());
+    }
+
+    IEnumerator LifeLose()
+    {
+        while (true)
+        {
+            life -= Time.deltaTime;
+            yield return null;
+        }
     }
 
     int playerPosition = 0;
@@ -64,7 +75,7 @@ public class AI_Player : MonoBehaviour
             PerlinShaker.ShakePosition(Camera.main.transform, Vector3.one * maq, ShakeDuration, motion, false, false, Ease.OutElastic);
             UI_MainController.Instance.ShowHurtView();
 
-            life -= 1;
+            life -= 300;
             if (life <= 0)
             {
                 isGameing = false;
@@ -74,7 +85,8 @@ public class AI_Player : MonoBehaviour
         }
         else
         {
-            life++;
+            life += 300;
+            life = Mathf.Clamp(life, 0, lifeInit);
             AI_Level.Instance.RecoveryFish(collision.gameObject);
         }
 

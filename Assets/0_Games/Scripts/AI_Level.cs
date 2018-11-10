@@ -7,14 +7,17 @@ public class AI_Level : MonoBehaviour
     public static AI_Level Instance;
     public ObjectPool rockPool;
     public ObjectPool fishPool;
-    void Awake(){
+    void Awake()
+    {
         Instance = this;
     }
     void Start()
     {
         StartCoroutine(Level());
     }
-    public void RecoveryFish(GameObject obj){
+
+    public void RecoveryFish(GameObject obj)
+    {
         fishPool.Recovery(obj);
     }
 
