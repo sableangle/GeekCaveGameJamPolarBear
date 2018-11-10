@@ -37,7 +37,7 @@ public class UI_MainController : MonoBehaviour
         {
             lifeTween.Kill();
         }
-        lifeBar.DOScaleX(life / 1000f, 0.2f);
+        lifeBar.DOSizeDelta(new Vector2(710 * (life / 1000f), lifeBar.sizeDelta.y), 0.2f);
     }
 
 
