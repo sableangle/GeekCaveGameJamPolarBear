@@ -6,9 +6,6 @@ using DG.Tweening;
 public class AI_Player : MonoBehaviour
 {
     Transform transformCache;
-
-
-
     void Awake()
     {
         transformCache = transform;
@@ -42,10 +39,17 @@ public class AI_Player : MonoBehaviour
     }
 
     float duration = 0.2f;
-	float moveXOffect = 15f;
     void MovePlayer()
     {
-        transformCache.DOMoveX(moveXOffect * playerPosition, duration);
+        transformCache.DOMoveX(GameData.Instance.moveXOffect * playerPosition, duration);
     }
 
+
+    void OnTriggerEnter(Collider collision)
+    {
+        Debug.Log(collision.gameObject.name);
+
+        collision.transform.DORotate(new Vector3(90, 0, 0), 0.05f);
+        PerlinShaker.ShakePosition(Camera.main.transform, Vector3.one * 1.4f, 0.08f, 1, true);
+    }
 }
