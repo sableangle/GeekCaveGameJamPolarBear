@@ -1,0 +1,3 @@
+[submodule "Assets/CloudMacacaUtilitys"]
+	path = Assets/CloudMacacaUtilitys
+	url = https://bitbucket.org/cloudmacaca/utilitys.git
