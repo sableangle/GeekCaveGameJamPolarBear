@@ -36,4 +36,6 @@ public class GameData : ScriptableObject {
 	public float moveXOffect = 15f;
 	public float generateStartZ = 300;
 	public float playerSpeed = 10;
+
+	
 }

@@ -47,9 +47,7 @@ public class AI_Player : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        Debug.Log(collision.gameObject.name);
-
         collision.transform.DORotate(new Vector3(90, 0, 0), 0.05f);
-        PerlinShaker.ShakePosition(Camera.main.transform, Vector3.one * 1.4f, 0.08f, 1, true);
+        PerlinShaker.ShakePosition(Camera.main.transform, Vector3.one * 1.5f, 0.1f, 1, false);
     }
 }

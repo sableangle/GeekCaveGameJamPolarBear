@@ -6,7 +6,7 @@ public class FlyingObject : MonoBehaviour
 {
     Transform transformCache;
     // Use this for initialization
-    void Start()
+    public void Start()
     {
         transformCache = transform;
     }
