@@ -14,6 +14,9 @@ public class FlyingObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(AI_Player.isGameing == false){
+            return;
+        }
         transform.Translate(0, 0, -GameData.Instance.playerSpeed * Time.deltaTime,Space.World);
     }
 }

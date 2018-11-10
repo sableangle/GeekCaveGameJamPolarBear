@@ -20,6 +20,10 @@ public class water_offset : MonoBehaviour
 
     void LateUpdate()
     {
+        if (AI_Player.isGameing == false)
+        {
+            return;
+        }
         angle += 55f * 0.017444f * Time.deltaTime;
         uvOffset = 0.15f * uvAnimationRate * Mathf.Sin(angle);
         //uvOffset += new Vector2(0,-0.5f*Time.deltaTime);
