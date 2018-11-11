@@ -37,7 +37,7 @@ public class UI_MainController : MonoBehaviour
         {
             lifeTween.Kill();
         }
-        lifeBar.DOSizeDelta(new Vector2(710 * (life / 1000f), lifeBar.sizeDelta.y), 0.2f);
+        lifeBar.DOSizeDelta(new Vector2(710 * (life / AI_Player.lifeInit), lifeBar.sizeDelta.y), 0.2f);
     }
 
 
@@ -75,10 +75,14 @@ public class UI_MainController : MonoBehaviour
     }
     public void OnGameOverAgainClick()
     {
+        SoundEffect.Instance.PlayBtnSound();
         UnityEngine.SceneManagement.SceneManager.LoadScene(Application.loadedLevelName);
     }
     public void OnGameOverExitClick()
     {
+        SoundEffect.Instance.PlayBtnSound();
+
         UnityEngine.SceneManagement.SceneManager.LoadScene("Hello");
+
     }
 }

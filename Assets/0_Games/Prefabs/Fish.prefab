@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4392961371910582}
   - component: {fileID: 65464936626317606}
   - component: {fileID: 54758100337561226}
-  - component: {fileID: 114643774312488492}
+  - component: {fileID: 114622395538615144}
   m_Layer: 0
   m_Name: Fish
   m_TagString: Heart
@@ -191,7 +191,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114643774312488492
+--- !u!114 &114622395538615144
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -199,13 +199,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1643841906337426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e50e104b650f4ab1b9ada2816c79818, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fb86e5a08d0842ccb655324da0c0fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textures:
-  - {fileID: 2800000, guid: c67d7d7206561427fb3c8ac22a333961, type: 3}
-  - {fileID: 2800000, guid: 5f1e396f2b9be43a9b61d0f075e1567f, type: 3}
-  renderer: {fileID: 0}
   shadow: {fileID: 1086239036790188}
 --- !u!212 &212279207116074056
 SpriteRenderer:

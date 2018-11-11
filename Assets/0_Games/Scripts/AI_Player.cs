@@ -9,8 +9,8 @@ public class AI_Player : MonoBehaviour
 
 
     Transform transformCache;
-    public int lifeInit = 1000;
-    public float life = 1000;
+    public static int lifeInit = 300;
+    public float life = 300;
     void Awake()
     {
         transformCache = transform;
@@ -32,11 +32,25 @@ public class AI_Player : MonoBehaviour
         StartCoroutine(LifeLose());
     }
 
+    public float lifeLoseSpeed = 10;
     IEnumerator LifeLose()
     {
         while (true)
         {
-            life -= Time.deltaTime;
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                life += 50;
+            }
+            life -= Time.deltaTime * lifeLoseSpeed;
+            if (life <= 0)
+            {
+                isGameing = false;
+                UI_MainController.Instance.ShowGamerView();
+                animator.SetTrigger("Dead");
+                BGMSwitcher.Instance.PlayDeadBGM();
+                SoundEffect.Instance.PlayLoseSound();
+                StopAllCoroutines();
+            }
             yield return null;
         }
     }
@@ -59,6 +73,10 @@ public class AI_Player : MonoBehaviour
     float duration = 0.2f;
     void MovePlayer()
     {
+        if (!isGameing)
+        {
+            return;
+        }
         transformCache.DOMoveX(GameData.Instance.moveXOffect * playerPosition, duration);
     }
 
@@ -74,21 +92,20 @@ public class AI_Player : MonoBehaviour
             collision.transform.DORotate(new Vector3(90, 0, 0), 0.05f);
             PerlinShaker.ShakePosition(Camera.main.transform, Vector3.one * maq, ShakeDuration, motion, false, false, Ease.OutElastic);
             UI_MainController.Instance.ShowHurtView();
+            SoundEffect.Instance.PlayHitSound();
+            life -= 60;
 
-            life -= 300;
-            if (life <= 0)
-            {
-                isGameing = false;
-                UI_MainController.Instance.ShowGamerView();
-                animator.SetTrigger("Dead");
-            }
         }
-        else
+        else if (collision.gameObject.tag == "Heart")
         {
-            life += 300;
+            life += 30;
             life = Mathf.Clamp(life, 0, lifeInit);
-            AI_Level.Instance.RecoveryFish(collision.gameObject);
+            Destroy(collision.gameObject);
+            SoundEffect.Instance.PlayAddSound();
         }
-
+        else if (collision.gameObject.tag == "Hole")
+        {
+            collision.SendMessage("PlayAnimation");
+        }
     }
 }

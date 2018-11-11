@@ -5,8 +5,9 @@ using UnityEngine;
 public class AI_Level : MonoBehaviour
 {
     public static AI_Level Instance;
-    public ObjectPool rockPool;
-    public ObjectPool fishPool;
+    public GameObject rockPool;
+    public GameObject fishPool;
+    public GameObject HoldFish;
     void Awake()
     {
         Instance = this;
@@ -16,25 +17,28 @@ public class AI_Level : MonoBehaviour
         StartCoroutine(Level());
     }
 
-    public void RecoveryFish(GameObject obj)
-    {
-        fishPool.Recovery(obj);
-    }
 
     IEnumerator Level()
     {
-        yield return Yielders.GetWaitForSeconds(Random.Range(0.5f, 1f));
+        if(!AI_Player.isGameing){
+            yield break;
+        }
+        yield return Yielders.GetWaitForSeconds(Random.Range(0.25f, 0.5f));
 
         int key = Random.Range(0, 10);
         int position = Mathf.Clamp(Random.Range(-1, 2), -1, 1);
         if (key > 2)
         {
 
-            rockPool.ReUse(new Vector3(position * GameData.Instance.moveXOffect, 0, GameData.Instance.generateStartZ), Quaternion.identity);
+            Instantiate(rockPool,new Vector3(position * GameData.Instance.moveXOffect, 0, GameData.Instance.generateStartZ), Quaternion.identity);
         }
-        else
+        else if (key == 0)
         {
-            fishPool.ReUse(new Vector3(position * GameData.Instance.moveXOffect, 0, GameData.Instance.generateStartZ), Quaternion.identity);
+            Instantiate(fishPool,new Vector3(position * GameData.Instance.moveXOffect, 0, GameData.Instance.generateStartZ), Quaternion.identity);
+        }
+        else if (key == 1)
+        {
+            Instantiate(HoldFish, new Vector3(position * GameData.Instance.moveXOffect, 0.2f, GameData.Instance.generateStartZ), Quaternion.Euler(90,0,0));
         }
         yield return Level();
     }
@@ -43,11 +47,15 @@ public class AI_Level : MonoBehaviour
     {
         if (collision.gameObject.tag == "Rock")
         {
-            rockPool.Recovery(collision.gameObject);
+            Destroy(collision.gameObject);
         }
         if (collision.gameObject.tag == "Heart")
         {
-            fishPool.Recovery(collision.gameObject);
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.tag == "Hole")
+        {
+            Destroy(collision.gameObject);
         }
     }
 }

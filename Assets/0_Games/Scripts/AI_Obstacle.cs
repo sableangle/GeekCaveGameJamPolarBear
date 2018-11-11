@@ -6,20 +6,18 @@ public class AI_Obstacle : FlyingObject
 {
     public Texture[] textures;
     public Renderer renderer;
-    public GameObject shadow;
+   
     // Use this for initialization
     void Start()
     {
         base.Start();
-        int index = Random.Range(0, textures.Length);
+        renderer = GetComponentInChildren<Renderer>();
     }
 
 	void OnEnable(){
-		shadow.SetActive(true);
+        int index = Random.Range(0, textures.Length);
+        renderer.material.mainTexture = textures[index];
 	}
 
-    public void DisableShadow()
-    {
-		shadow.SetActive(false);
-    }
+
 }

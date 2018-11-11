@@ -13,4 +13,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveXOffect: 15
   generateStartZ: 300
-  playerSpeed: 50
+  playerSpeed: 80
