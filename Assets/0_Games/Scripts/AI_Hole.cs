@@ -23,6 +23,15 @@ public class AI_Hole : MonoBehaviour
     public void PlayAnimation()
     {
         animator.Play("Jump");
+        if (animator.gameObject.name == "Uchi")
+        {
+            SoundEffect.Instance.PlayUchiSound();
+        }
+        else
+        {
+            SoundEffect.Instance.PlayFishJumpSound();
+
+        }
     }
 
     // Update is called once per frame

@@ -14,6 +14,8 @@ public class AI_Player : MonoBehaviour
     void Awake()
     {
         transformCache = transform;
+                isGameing = true;
+
     }
     void Start()
     {
@@ -27,7 +29,6 @@ public class AI_Player : MonoBehaviour
                 OnRightKeyClick
             );
 
-        isGameing = true;
         life = lifeInit;
         StartCoroutine(LifeLose());
     }

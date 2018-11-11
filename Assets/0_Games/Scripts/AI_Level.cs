@@ -8,6 +8,7 @@ public class AI_Level : MonoBehaviour
     public GameObject rockPool;
     public GameObject fishPool;
     public GameObject HoldFish;
+    public GameObject HoldUchi;
     void Awake()
     {
         Instance = this;
@@ -39,6 +40,10 @@ public class AI_Level : MonoBehaviour
         else if (key == 1)
         {
             Instantiate(HoldFish, new Vector3(position * GameData.Instance.moveXOffect, 0.2f, GameData.Instance.generateStartZ), Quaternion.Euler(90,0,0));
+        }
+        else if (key == 2)
+        {
+            Instantiate(HoldUchi, new Vector3(position * GameData.Instance.moveXOffect, 0.2f, GameData.Instance.generateStartZ), Quaternion.Euler(90,0,0));
         }
         yield return Level();
     }

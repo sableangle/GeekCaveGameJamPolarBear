@@ -10,6 +10,8 @@ public class SoundEffect : MonoBehaviour {
 	public AudioClip btnSound;
 	public AudioClip hitSound;
 	public AudioClip addSound;
+	public AudioClip uchiSound;
+	public AudioClip fishJumpSound;
 	// Use this for initialization
 	void Awake () {
 		Instance = this;
@@ -29,5 +31,11 @@ public class SoundEffect : MonoBehaviour {
 	public void PlayAddSound(){
 		source.PlayOneShot(addSound);
 	}
+	public void PlayUchiSound(){
+		source.PlayOneShot(uchiSound);
+	}
 
+	public void PlayFishJumpSound(){
+		source.PlayOneShot(fishJumpSound);
+	}
 }
