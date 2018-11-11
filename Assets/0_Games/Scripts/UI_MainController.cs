@@ -19,7 +19,7 @@ public class UI_MainController : MonoBehaviour
     {
         Hurt.alpha = 0;
         GameOverPanel.alpha = 0;
-
+        WinPanel.alpha = 0;
         aI_Player.ObserveEveryValueChanged(m => m.life).Subscribe(
             (lift) =>
             {
@@ -84,5 +84,17 @@ public class UI_MainController : MonoBehaviour
 
         UnityEngine.SceneManagement.SceneManager.LoadScene("Hello");
 
+    }
+
+    public Tween Win;
+    public CanvasGroup WinPanel;
+
+    public void ShowWinView()
+    {
+        if (Win != null)
+        {
+            Win.Kill();
+        }
+        WinPanel.DOFade(1, 0.4f).SetDelay(0.5f);
     }
 }

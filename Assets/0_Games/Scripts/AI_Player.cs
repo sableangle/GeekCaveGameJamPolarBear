@@ -6,6 +6,7 @@ using DG.Tweening;
 public class AI_Player : MonoBehaviour
 {
     public static bool isGameing = true;
+    public static bool isFinish = false;
 
 
     Transform transformCache;
@@ -14,7 +15,9 @@ public class AI_Player : MonoBehaviour
     void Awake()
     {
         transformCache = transform;
-                isGameing = true;
+        isGameing = true;
+        finishTime = 60;
+        isFinish = false;
 
     }
     void Start()
@@ -31,7 +34,31 @@ public class AI_Player : MonoBehaviour
 
         life = lifeInit;
         StartCoroutine(LifeLose());
+        StartCoroutine( LevelProgress());
     }
+
+    public float finishTime = 60;
+    IEnumerator LevelProgress()
+    {
+        while (finishTime > 0)
+        {
+            finishTime -= Time.deltaTime;
+            yield return null;
+        }
+
+        isFinish = true;
+        yield return Yielders.GetWaitForSeconds(2f);
+        // 獲勝 
+
+        //生一隻企鵝
+        var Pengun = Resources.Load("Pengun");
+
+        Instantiate(Pengun, new Vector3(0, 4.9f, GameData.Instance.generateStartZ), Quaternion.identity);
+
+        yield return Yielders.GetWaitForSeconds(0.5f);
+        //UI
+    }
+
 
     public float lifeLoseSpeed = 10;
     IEnumerator LifeLose()
@@ -107,6 +134,11 @@ public class AI_Player : MonoBehaviour
         else if (collision.gameObject.tag == "Hole")
         {
             collision.SendMessage("PlayAnimation");
+        }
+        else if (collision.gameObject.tag == "Win")
+        {
+            collision.gameObject.SendMessage("PengunEscape");
+            isGameing = false;
         }
     }
 }

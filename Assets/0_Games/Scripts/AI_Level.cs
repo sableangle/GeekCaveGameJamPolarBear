@@ -21,7 +21,7 @@ public class AI_Level : MonoBehaviour
 
     IEnumerator Level()
     {
-        if(!AI_Player.isGameing){
+        if(!AI_Player.isGameing || AI_Player.isFinish == true){
             yield break;
         }
         yield return Yielders.GetWaitForSeconds(Random.Range(0.25f, 0.5f));
